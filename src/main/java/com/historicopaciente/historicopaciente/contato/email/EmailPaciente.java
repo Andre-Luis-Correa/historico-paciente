@@ -9,9 +9,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Email {
+@Table(name = "email_paciente")
+public class EmailPaciente {
 
     @Id
+    @Column(name = "email_paciente")
     private String email;
 
 }

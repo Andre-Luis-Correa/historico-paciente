@@ -3,13 +3,11 @@ package com.historicopaciente.historicopaciente.contato.telefone;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class TelefoneService {
 
-    private final TelefoneRepository telefoneRepository;
+    private final TelefonePacienteRepository telefonePacienteRepository;
 
 //    public void mostrarTelefonesCliente(Cliente cliente) {
 //

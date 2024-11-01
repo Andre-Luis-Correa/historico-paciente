@@ -1,4 +1,4 @@
-package com.historicopaciente.historicopaciente.contato.telefone.ddi;
+package com.historicopaciente.historicopaciente.contato.ddd;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,10 +12,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "DDI")
-public class DDI {
+@Table(name = "DDD")
+public class DDD {
 
     @Id
     @Column(name = "numero_DDD")
-    private Long numeroDDI;
+    private Long numeroDDD;
 }

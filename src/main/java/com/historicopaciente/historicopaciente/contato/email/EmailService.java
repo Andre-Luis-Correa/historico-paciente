@@ -3,13 +3,11 @@ package com.historicopaciente.historicopaciente.contato.email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final EmailRepository emailRepository;
+    private final EmailPacienteRepository emailPacienteRepository;
 
 //    public void mostrarEmailCliente(Cliente cliente) {
 //        List<Email> emailList = emailRepository.findAllByCliente(cliente);

@@ -1,7 +1,8 @@
 package com.historicopaciente.historicopaciente.contato.telefone;
 
-import com.historicopaciente.historicopaciente.contato.telefone.ddd.DDD;
-import com.historicopaciente.historicopaciente.contato.telefone.ddi.DDI;
+import com.historicopaciente.historicopaciente.contato.ddd.DDD;
+import com.historicopaciente.historicopaciente.contato.ddi.DDI;
+import com.historicopaciente.historicopaciente.medico.Medico;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -11,11 +12,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "telefone")
-public class Telefone {
+@Table(name = "telefone_medico")
+public class TelefoneMedico {
 
     @Id
-    @Column(name = "numero_telefone")
+    @Column(name = "numero_telefone_medico")
     private String numeroTelefone;
 
     @ManyToOne
@@ -26,4 +27,7 @@ public class Telefone {
     @JoinColumn(name = "numero_DDI")
     private DDI numeroDDI;
 
+    @ManyToOne
+    @JoinColumn(name = "crm_medico")
+    private Medico medico;
 }
