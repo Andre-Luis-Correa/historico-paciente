@@ -17,9 +17,11 @@ import com.historicopaciente.historicopaciente.report.JasperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -34,7 +36,7 @@ public class PacienteService {
     private final ConsultaMedicaService consultaMedicaService;
     private final ExameMedicoService exameMedicoService;
 
-    public void gerarRelatorioHistoricoPaciente() {
+    public void gerarRelatorioHistoricoPaciente() throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Número do paciente: ");
@@ -88,16 +90,17 @@ public class PacienteService {
     private Map<String, Object> generateReportParams(Paciente paciente) {
         Map<String, Object> params = new HashMap<>();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String enderecoCompleto = enderecoService.gerarEnderecoCompleto(paciente.getEndereco(), paciente.getComplementoEndereco(), paciente.getNumeroEndereco());
 
         params.put("PATIENT_NAME", paciente.getNome());
         params.put("PATIENT_NUMBER", paciente.getNumero());
-        params.put("PATIENT_BIRTH_DATE", dateFormat.format(paciente.getDataNascimento()));
+        params.put("PATIENT_BIRTH_DATE", dateFormatter.format(paciente.getDataNascimento()));
         params.put("PATIENT_SEX", paciente.getSexo().getNome());
         params.put("PATIENT_CIVIL_STATUS", paciente.getEstadoCivil().getNome());
         params.put("PATIENT_DOCUMENT", paciente.getNumeroDocumentoIdentidade());
         params.put("PATIENT_ADDRESS", enderecoCompleto);
+        params.put("LOGO1", "reports/logo.png");
 
         return params;
     }

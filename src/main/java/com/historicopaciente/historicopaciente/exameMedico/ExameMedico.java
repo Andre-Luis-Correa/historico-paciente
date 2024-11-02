@@ -25,11 +25,11 @@ public class ExameMedico {
     private LocalDate dataRealizacao;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_tipo_exame")
+    @JoinColumn(name = "codigo_tipo_exame_medico")
     private TipoExameMedico tipoExameMedico;
 
     @ManyToOne
-    @JoinColumn(name = "id_resultado_geral_exame")
+    @JoinColumn(name = "id_resultado_geral_exame_medico")
     private ResultadoGeralExameMedico resultadoGeralExameMedico;
 
     @Column(name = "observacao_exame_medico")

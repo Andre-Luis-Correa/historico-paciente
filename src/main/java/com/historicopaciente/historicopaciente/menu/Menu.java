@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 @Log4j2
@@ -31,7 +32,7 @@ public class Menu {
         return opcao;
     }
 
-    public void inicializarMenu() {
+    public void inicializarMenu() throws FileNotFoundException {
         int opcao = 0;
 
         while(opcao != 4) {

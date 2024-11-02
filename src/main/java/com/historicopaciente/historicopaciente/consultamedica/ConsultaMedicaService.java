@@ -16,7 +16,7 @@ import java.util.List;
 public class ConsultaMedicaService {
 
     private final ConsultaMedicaRepository consultaMedicaRepository;
-    private EmailService emailService;
+    private final EmailService emailService;
 
     public List<ConsultaMedica> buscarConsultasMedicasPaciente(Paciente paciente) {
         return consultaMedicaRepository.findAllByPaciente(paciente);

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "bairro")
+@Table(name = "sexo")
 public class Sexo {
 
     @Id

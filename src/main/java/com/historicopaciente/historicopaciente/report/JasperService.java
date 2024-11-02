@@ -6,6 +6,7 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JasperService {
 
-    public byte[] reportGenerate(String jrxmlPath, Map<String, Object> params, Map<String, Object> collections) {
+    public byte[] reportGenerate(String jrxmlPath, Map<String, Object> params, Map<String, Object> collections) throws FileNotFoundException {
 
         Iterator it = collections.entrySet().iterator();
         while (it.hasNext()) {
@@ -46,8 +47,11 @@ public class JasperService {
         return null;
     }
 
-    private JasperReport compileJrxml(String jrxmlPath) {
+    private JasperReport compileJrxml(String jrxmlPath) throws FileNotFoundException {
         InputStream is = getClass().getClassLoader().getResourceAsStream(jrxmlPath);
+        if (is == null) {
+            throw new FileNotFoundException("Arquivo de relatório não encontrado: reports/patient_report.jrxml");
+        }
 
         try {
             return JasperCompileManager.compileReport(is);

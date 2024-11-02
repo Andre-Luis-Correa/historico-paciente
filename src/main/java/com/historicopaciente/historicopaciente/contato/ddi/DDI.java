@@ -17,5 +17,5 @@ public class DDI {
 
     @Id
     @Column(name = "numero_ddi")
-    private Long numeroDDI;
+    private String numeroDDI;
 }

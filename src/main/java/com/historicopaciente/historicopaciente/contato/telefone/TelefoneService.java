@@ -23,7 +23,7 @@ public class TelefoneService {
         List<TelefoneDTO> telefoneDTOList = new ArrayList<>();
 
         for (TelefonePaciente telefonePaciente : telefonePacienteList) {
-            String phone = "+ " + telefonePaciente.getNumeroDDI().getNumeroDDI() + " (" +
+            String phone = telefonePaciente.getNumeroDDI().getNumeroDDI() + " (" +
                     telefonePaciente.getNumeroDDD().getNumeroDDD() + ") " +
                     telefonePaciente.getNumeroTelefone();
 
