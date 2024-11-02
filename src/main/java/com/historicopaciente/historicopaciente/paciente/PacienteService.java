@@ -9,6 +9,7 @@ import com.historicopaciente.historicopaciente.contato.email.EmailService;
 import com.historicopaciente.historicopaciente.contato.telefone.TelefoneDTO;
 import com.historicopaciente.historicopaciente.contato.telefone.TelefonePaciente;
 import com.historicopaciente.historicopaciente.contato.telefone.TelefoneService;
+import com.historicopaciente.historicopaciente.database.DatabaseConnection;
 import com.historicopaciente.historicopaciente.endereco.EnderecoService;
 import com.historicopaciente.historicopaciente.exameMedico.ExameMedico;
 import com.historicopaciente.historicopaciente.exameMedico.ExameMedicoDTO;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -35,6 +37,7 @@ public class PacienteService {
     private final EmailService emailService;
     private final ConsultaMedicaService consultaMedicaService;
     private final ExameMedicoService exameMedicoService;
+    private final DatabaseConnection databaseConnection;
 
     public void gerarRelatorioHistoricoPaciente() throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
@@ -115,4 +118,157 @@ public class PacienteService {
     }
 
 
+    public void realizarOperacaoProdutoCartesiano() {
+        String query = "SELECT * FROM historico_paciente.paciente, historico_paciente.medico";
+
+        try (Connection connection = databaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            System.out.println("\n" + "-".repeat(40 * columnCount));
+
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.printf("| %-38s", metaData.getColumnName(i));
+            }
+            System.out.printf("|")
+;            System.out.println();
+
+            System.out.println("-".repeat(40 * columnCount));
+
+            while (resultSet.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    System.out.printf("| %-38s", resultSet.getString(i));
+                }
+                System.out.printf("|");
+                System.out.println();
+            }
+
+            System.out.println("-".repeat(40 * columnCount));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void realizarOperacaoUniao() {
+        String query = """
+                SELECT numero_paciente
+                FROM historico_paciente.consulta_medica
+                UNION
+                SELECT numero_paciente
+                FROM historico_paciente.exame_medico;
+                """;
+
+        try (Connection connection = databaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            System.out.println("\n" + "-".repeat(20 * columnCount));
+
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.printf("| %-17s|", metaData.getColumnName(i));
+            }
+            System.out.println();
+
+            System.out.println("-".repeat(20 * columnCount));
+
+            while (resultSet.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    System.out.printf("| %-17s|", resultSet.getString(i));
+                }
+                System.out.println();
+            }
+
+            System.out.println("-".repeat(20 * columnCount));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void realizarOperacaoDiferenca() {
+        String query = """
+            SELECT numero_paciente
+            FROM historico_paciente.exame_medico
+            WHERE numero_paciente NOT IN (
+                SELECT numero_paciente
+                FROM historico_paciente.consulta_medica
+            );
+            """;
+
+        try (Connection connection = databaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            System.out.println("\n" + "-".repeat(20 * columnCount));
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.printf("| %-17s|", metaData.getColumnName(i));
+            }
+            System.out.println();
+            System.out.println("-".repeat(20 * columnCount));
+
+            while (resultSet.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    System.out.printf("| %-17s|", resultSet.getString(i));
+                }
+                System.out.println();
+            }
+
+            System.out.println("-".repeat(20 * columnCount));
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao realizar a operação de diferença.");
+            e.printStackTrace();
+        }
+    }
+
+    public void realizarOperacaoJuncaoNaturalEsquerda() {
+        String query = """
+            SELECT *
+            FROM historico_paciente.diagnostico_cid
+            NATURAL LEFT JOIN historico_paciente.consulta_medica;
+            """;
+
+        try (Connection connection = databaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            // Obtém os metadados para saber o número e nome das colunas
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            // Imprime cabeçalho com o nome das colunas
+            System.out.println("\n" + "-".repeat(40 * columnCount));
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.printf("| %-38s", metaData.getColumnName(i));
+            }
+            System.out.printf("|");
+            System.out.println();
+            System.out.println("-".repeat(40 * columnCount));
+
+            // Imprime os dados de cada linha
+            while (resultSet.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    System.out.printf("| %-38s", resultSet.getString(i));
+                }
+                System.out.printf("|");
+                System.out.println();
+            }
+
+            System.out.println("-".repeat(40 * columnCount));
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao realizar a operação de junção natural à esquerda.");
+            e.printStackTrace();
+        }
+    }
 }
