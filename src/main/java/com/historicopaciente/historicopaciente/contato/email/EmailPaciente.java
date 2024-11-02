@@ -1,5 +1,6 @@
 package com.historicopaciente.historicopaciente.contato.email;
 
+import com.historicopaciente.historicopaciente.paciente.Paciente;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -16,4 +17,7 @@ public class EmailPaciente {
     @Column(name = "email_paciente")
     private String email;
 
+    @ManyToOne
+    @JoinColumn(name = "numero_paciente")
+    private Paciente paciente;
 }

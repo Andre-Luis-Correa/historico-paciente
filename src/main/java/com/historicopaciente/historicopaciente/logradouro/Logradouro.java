@@ -22,6 +22,6 @@ public class Logradouro {
     private String nome;
 
     @ManyToOne
-    @Column(name = "id_tipo_logradouro")
+    @JoinColumn(name = "sigla_tipo_logradouro")
     private TipoLogradouro tipoLogradouro;
 }

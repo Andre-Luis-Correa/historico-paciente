@@ -12,10 +12,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "DDI")
+@Table(name = "ddi")
 public class DDI {
 
     @Id
-    @Column(name = "numero_DDD")
+    @Column(name = "numero_ddi")
     private Long numeroDDI;
 }

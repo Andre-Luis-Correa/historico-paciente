@@ -20,11 +20,11 @@ public class TelefoneMedico {
     private String numeroTelefone;
 
     @ManyToOne
-    @JoinColumn(name = "numero_DDD")
+    @JoinColumn(name = "numero_ddd")
     private DDD numeroDDD;
 
     @ManyToOne
-    @JoinColumn(name = "numero_DDI")
+    @JoinColumn(name = "numero_ddi")
     private DDI numeroDDI;
 
     @ManyToOne

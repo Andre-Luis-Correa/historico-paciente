@@ -22,7 +22,7 @@ public class Cidade {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name = "id_unidade_federativa")
+    @JoinColumn(name = "sigla_uf")
     private UnidadeFederativa unidadeFederativa;
 
 }

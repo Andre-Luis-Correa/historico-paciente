@@ -20,7 +20,7 @@ public class Endereco {
     @Column(name = "id_endereco")
     private Long id;
 
-    @Column(name = "cep")
+    @Column(name = "cep_endereco")
     private String cep;
 
     @ManyToOne

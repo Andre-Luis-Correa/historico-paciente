@@ -29,7 +29,7 @@ public class ConsultaMedica {
     private Medico medico;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_diagnostico_CID")
+    @JoinColumn(name = "codigo_diagnostico_cid")
     private DiagnosticoCID diagnosticoCID;
 
     @ManyToOne

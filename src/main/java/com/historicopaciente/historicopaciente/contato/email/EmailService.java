@@ -1,13 +1,33 @@
 package com.historicopaciente.historicopaciente.contato.email;
 
+import com.historicopaciente.historicopaciente.paciente.Paciente;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class EmailService {
 
     private final EmailPacienteRepository emailPacienteRepository;
+
+    public List<EmailPaciente> buscarEmailsPaciente(Paciente paciente) {
+        return emailPacienteRepository.findAllByPaciente(paciente);
+    }
+
+    public List<EmailDTO> gerarEmailDTOList(List<EmailPaciente> emailPacienteList) {
+        List<EmailDTO> emailDTOList = new ArrayList<>();
+
+        for (EmailPaciente emailPaciente : emailPacienteList) {
+            EmailDTO emailDTO = new EmailDTO(emailPaciente.getEmail());
+            emailDTOList.add(emailDTO);
+        }
+
+        return emailDTOList;
+    }
+
 
 //    public void mostrarEmailCliente(Cliente cliente) {
 //        List<Email> emailList = emailRepository.findAllByCliente(cliente);

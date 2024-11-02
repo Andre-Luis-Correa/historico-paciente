@@ -9,13 +9,13 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "tipoExame")
+@Table(name = "tipo_exame_medico")
 public class TipoExame {
 
     @Id
-    @Column(name = "codigo_tipo_exame")
+    @Column(name = "codigo_tipo_exame_medico")
     private String codigo;
 
-    @Column(name = "nome_tipo_exame")
+    @Column(name = "nome_tipo_exame_medico")
     private String nome;
 }

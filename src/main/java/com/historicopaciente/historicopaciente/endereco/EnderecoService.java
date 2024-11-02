@@ -33,6 +33,40 @@ public class EnderecoService {
         return enderecoRepository.save(endereco);
     }
 
+    public String gerarEnderecoCompleto(Endereco endereco, String complementoEndereco, String numeroEndereco) {
+        StringBuilder enderecoCompleto = new StringBuilder();
+
+        if (endereco.getLogradouro() != null) {
+            if (endereco.getLogradouro().getTipoLogradouro() != null) {
+                enderecoCompleto.append(endereco.getLogradouro().getTipoLogradouro().getSigla()).append(" ");
+            }
+            enderecoCompleto.append(endereco.getLogradouro().getNome()).append(", ");
+        }
+
+        enderecoCompleto.append("Nº ").append(numeroEndereco).append(", ");
+
+        if (complementoEndereco != null && !complementoEndereco.isEmpty()) {
+            enderecoCompleto.append(complementoEndereco).append(", ");
+        }
+
+        if (endereco.getBairro() != null) {
+            enderecoCompleto.append(endereco.getBairro().getNome()).append(", ");
+        }
+
+        if (endereco.getCidade() != null) {
+            enderecoCompleto.append(endereco.getCidade().getNome());
+
+            if (endereco.getCidade().getUnidadeFederativa() != null) {
+                enderecoCompleto.append(" - ").append(endereco.getCidade().getUnidadeFederativa().getSigla());
+            }
+            enderecoCompleto.append(", ");
+        }
+
+        enderecoCompleto.append("CEP: ").append(endereco.getCep());
+
+        return enderecoCompleto.toString();
+    }
+
 //    public void mostrarEnderecoCliente(Cliente cliente) {
 //        Endereco endereco = cliente.getEndereco();
 //

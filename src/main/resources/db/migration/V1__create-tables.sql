@@ -54,7 +54,7 @@ CREATE TABLE paciente (
                           data_nascimento_paciente DATE,
                           id_sexo INT,
                           id_estado_civil INT,
-                          doc_identidade_paciente VARCHAR(50),
+                          numero_documento_identidade_paciente VARCHAR(50),
                           complemento_endereco_paciente VARCHAR(100),
                           numero_endereco_paciente VARCHAR(10),
                           id_endereco INT,
@@ -72,7 +72,7 @@ CREATE TABLE ddd (
 );
 
 CREATE TABLE telefone_paciente (
-                                   numero_telefone VARCHAR(20) PRIMARY KEY,
+                                   numero_telefone_paciente VARCHAR(20) PRIMARY KEY,
                                    numero_ddd VARCHAR(5),
                                    numero_ddi VARCHAR(5),
                                    numero_paciente VARCHAR(20),
@@ -87,30 +87,30 @@ CREATE TABLE email_paciente (
                                 FOREIGN KEY (numero_paciente) REFERENCES paciente(numero_paciente)
 );
 
-CREATE TABLE tipo_exame (
-                            id_tipo_exame INT PRIMARY KEY,
-                            nome_tipo_exame VARCHAR(100)
+CREATE TABLE tipo_exame_medico (
+                            codigo_tipo_exame_medico VARCHAR(10) PRIMARY KEY,
+                            nome_tipo_exame_medico VARCHAR(100)
 );
 
-CREATE TABLE resultado_geral_exame (
-                                       id_resultado_geral_exame INT PRIMARY KEY,
-                                       resultado_geral VARCHAR(100)
+CREATE TABLE resultado_geral_exame_medico (
+                                       id_resultado_geral_exame_medico INT PRIMARY KEY,
+                                       resultado_geral_exame_medico VARCHAR(100)
 );
 
 CREATE TABLE exame_medico (
-                              numero_exame INT PRIMARY KEY,
-                              data_realizacao_exame DATE,
-                              id_tipo_exame INT,
-                              id_resultado_geral_exame INT,
-                              observacoes_exame TEXT,
+                              numero_exame_medico INT PRIMARY KEY,
+                              data_realizacao_exame_medico DATE,
+                              codigo_tipo_exame_medico VARCHAR(10),
+                              id_resultado_geral_exame_medico INT,
+                              observacao_exame_medico TEXT,
                               numero_paciente VARCHAR(20),
-                              FOREIGN KEY (id_tipo_exame) REFERENCES tipo_exame(id_tipo_exame),
-                              FOREIGN KEY (id_resultado_geral_exame) REFERENCES resultado_geral_exame(id_resultado_geral_exame),
+                              FOREIGN KEY (codigo_tipo_exame_medico) REFERENCES tipo_exame_medico(codigo_tipo_exame_medico),
+                              FOREIGN KEY (id_resultado_geral_exame_medico) REFERENCES resultado_geral_exame_medico(id_resultado_geral_exame_medico),
                               FOREIGN KEY (numero_paciente) REFERENCES paciente(numero_paciente)
 );
 
-CREATE TABLE diagnostico_CID (
-                                 id_codigo_cid INT PRIMARY KEY,
+CREATE TABLE diagnostico_cid (
+                                 codigo_diagnostico_cid VARCHAR(10) PRIMARY KEY,
                                  descricao_diagnostico_cid TEXT
 );
 
@@ -140,12 +140,12 @@ CREATE TABLE email_medico (
 );
 
 CREATE TABLE consulta_medica (
-                                 numero_consulta INT PRIMARY KEY,
-                                 data_realizacao_consulta DATE,
+                                 numero_consulta_medica INT PRIMARY KEY,
+                                 data_realizacao_consulta_medica DATE,
                                  crm_medico VARCHAR(20),
-                                 id_codigo_cid INT,
+                                 codigo_diagnostico_cid VARCHAR(10),
                                  numero_paciente VARCHAR(20),
                                  FOREIGN KEY (crm_medico) REFERENCES medico(crm_medico),
-                                 FOREIGN KEY (id_codigo_cid) REFERENCES diagnostico_CID(id_codigo_cid),
+                                 FOREIGN KEY (codigo_diagnostico_cid) REFERENCES diagnostico_cid(codigo_diagnostico_cid),
                                  FOREIGN KEY (numero_paciente) REFERENCES paciente(numero_paciente)
 );

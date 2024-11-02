@@ -1,6 +1,6 @@
-package com.historicopaciente.historicopaciente.exame;
+package com.historicopaciente.historicopaciente.exameMedico;
 
-import com.historicopaciente.historicopaciente.ResultadoGeralExame;
+import com.historicopaciente.historicopaciente.resultadogeralexamemedico.ResultadoGeralExameMedico;
 import com.historicopaciente.historicopaciente.paciente.Paciente;
 import com.historicopaciente.historicopaciente.tipoexame.TipoExame;
 import jakarta.persistence.*;
@@ -30,7 +30,7 @@ public class ExameMedico {
 
     @ManyToOne
     @JoinColumn(name = "id_resultado_geral_exame")
-    private ResultadoGeralExame resultadoGeralExame;
+    private ResultadoGeralExameMedico resultadoGeralExameMedico;
 
     @Column(name = "observacao_exame_medico")
     private String observacao;

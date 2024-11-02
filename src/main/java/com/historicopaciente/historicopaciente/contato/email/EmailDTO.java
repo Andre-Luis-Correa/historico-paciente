@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 public class EmailDTO {
 
-    private String email;
+    private String emails;
 }

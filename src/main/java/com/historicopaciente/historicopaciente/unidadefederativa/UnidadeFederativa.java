@@ -16,9 +16,9 @@ import lombok.Setter;
 public class UnidadeFederativa {
 
     @Id
-    @Column(name = "sigla_UF")
+    @Column(name = "sigla_uf")
     private String sigla;
 
-    @Column(name = "nome_UF")
+    @Column(name = "nome_uf")
     private String nome;
 }

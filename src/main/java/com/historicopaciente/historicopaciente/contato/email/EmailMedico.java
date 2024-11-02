@@ -1,9 +1,7 @@
 package com.historicopaciente.historicopaciente.contato.email;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.historicopaciente.historicopaciente.medico.Medico;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +16,8 @@ public class EmailMedico {
     @Id
     @Column(name = "email_medico")
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "crm_medico")
+    private Medico medico;
 }

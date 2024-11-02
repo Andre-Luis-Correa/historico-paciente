@@ -12,13 +12,13 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "diagnostico_CID")
+@Table(name = "diagnostico_cid")
 public class DiagnosticoCID {
 
     @Id
-    @Column(name = "codigo_diagnostico_CID")
+    @Column(name = "codigo_diagnostico_cid")
     private String codigo;
 
-    @Column(name = "descricao_diagnostico_CID")
+    @Column(name = "descricao_diagnostico_cid")
     private String descricao;
 }

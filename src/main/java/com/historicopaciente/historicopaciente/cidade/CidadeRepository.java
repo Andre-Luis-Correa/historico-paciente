@@ -17,6 +17,6 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long> {
     @Query("SELECT c FROM Cidade c WHERE c.nome = :nomeCidade")
     Cidade findByNomeCidade(@Param("nomeCidade") String nomeCidade);
 
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Cidade c WHERE c.nomeCidade = :nomeCidade")
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Cidade c WHERE c.nome = :nomeCidade")
     boolean existsByNomeCidade(@Param("nomeCidade") String nomeCidade);
 }
