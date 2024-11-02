@@ -1,4 +1,4 @@
-package com.historicopaciente.historicopaciente.tipoexame;
+package com.historicopaciente.historicopaciente.tipoexamemedico;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "tipo_exame_medico")
-public class TipoExame {
+public class TipoExameMedico {
 
     @Id
     @Column(name = "codigo_tipo_exame_medico")

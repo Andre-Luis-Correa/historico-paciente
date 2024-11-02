@@ -1,5 +1,6 @@
 package com.historicopaciente.historicopaciente.contato.email;
 
+import com.historicopaciente.historicopaciente.medico.Medico;
 import com.historicopaciente.historicopaciente.paciente.Paciente;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.List;
 public class EmailService {
 
     private final EmailPacienteRepository emailPacienteRepository;
+    private final EmailMedicoRepository emailMedicoRepository;
 
     public List<EmailPaciente> buscarEmailsPaciente(Paciente paciente) {
         return emailPacienteRepository.findAllByPaciente(paciente);
@@ -26,6 +28,10 @@ public class EmailService {
         }
 
         return emailDTOList;
+    }
+
+    public String buscarEmailMedico(Medico medico) {
+        return emailMedicoRepository.findAllByMedico(medico).get(0).getEmail();
     }
 
 

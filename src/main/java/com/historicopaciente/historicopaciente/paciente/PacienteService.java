@@ -10,6 +10,8 @@ import com.historicopaciente.historicopaciente.contato.telefone.TelefoneDTO;
 import com.historicopaciente.historicopaciente.contato.telefone.TelefonePaciente;
 import com.historicopaciente.historicopaciente.contato.telefone.TelefoneService;
 import com.historicopaciente.historicopaciente.endereco.EnderecoService;
+import com.historicopaciente.historicopaciente.exameMedico.ExameMedico;
+import com.historicopaciente.historicopaciente.exameMedico.ExameMedicoDTO;
 import com.historicopaciente.historicopaciente.exameMedico.ExameMedicoService;
 import com.historicopaciente.historicopaciente.report.JasperService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +33,6 @@ public class PacienteService {
     private final EmailService emailService;
     private final ConsultaMedicaService consultaMedicaService;
     private final ExameMedicoService exameMedicoService;
-    private final
 
     public void gerarRelatorioHistoricoPaciente() {
         Scanner scanner = new Scanner(System.in);
@@ -51,23 +52,28 @@ public class PacienteService {
 
         List<TelefonePaciente> telefonePacienteList = telefoneService.buscarTelefonesPaciente(paciente);
         List<TelefoneDTO> telefoneDTOList = telefoneService.gerarTelefoneDTOList(telefonePacienteList);
+
         List<EmailPaciente> emailPacienteList = emailService.buscarEmailsPaciente(paciente);
         List<EmailDTO> emailDTOList = emailService.gerarEmailDTOList(emailPacienteList);
 
-        List<ConsultaMedica> consultaMedicaList =
-        List<TransacaoDTO> transacaoDTOList = gerarTransacaoDTOList(transacoes);
+        List<ConsultaMedica> consultaMedicaList = consultaMedicaService.buscarConsultasMedicasPaciente(paciente);
+        List<ConsultaMedicaDTO> consultaMedicaDTOList = consultaMedicaService.gerarConsultaMedicaDTOList(consultaMedicaList);
+
+        List<ExameMedico> exameMedicoList = exameMedicoService.buscarExamesMedicosPaciente(paciente);
+        List<ExameMedicoDTO> exameMedicoDTOListList = exameMedicoService.gerarExameMedicoDTOList(exameMedicoList);
 
         Map<String, Object> collections = new HashMap<>();
         collections.put("1", telefoneDTOList);
         collections.put("2", emailDTOList);
-        collections.put("3", transacaoDTOList);
+        collections.put("3", consultaMedicaDTOList);
+        collections.put("4", exameMedicoDTOListList);
 
-        byte[] file = jasperService.reportGenerate("reports/extrato.jrxml", params, collections);
+        byte[] file = jasperService.reportGenerate("reports/patient_report.jrxml", params, collections);
 
         if (file != null) {
-            try (OutputStream out = new FileOutputStream("extrato.pdf")) {
+            try (OutputStream out = new FileOutputStream("patient_report.pdf")) {
                 out.write(file);
-                System.out.println("Extrato gerado e salvo em 'extrato.pdf'.");
+                System.out.println("Extrato gerado e salvo em 'patient_report.pdf'.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -98,11 +104,11 @@ public class PacienteService {
 
 
     private Paciente buscarPacientePorNumeroPaciente(String numeroPaciente) {
-        return pacienteRepository.findByNumeroPaciente(numeroPaciente);
+        return pacienteRepository.findByNumero(numeroPaciente);
     }
 
     private boolean verificarSeExistePaciente(String numeroPaciente) {
-        return pacienteRepository.existsByNumeroPaciente();
+        return pacienteRepository.existsByNumero(numeroPaciente);
     }
 
 

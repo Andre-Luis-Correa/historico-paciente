@@ -2,7 +2,7 @@ package com.historicopaciente.historicopaciente.exameMedico;
 
 import com.historicopaciente.historicopaciente.resultadogeralexamemedico.ResultadoGeralExameMedico;
 import com.historicopaciente.historicopaciente.paciente.Paciente;
-import com.historicopaciente.historicopaciente.tipoexame.TipoExame;
+import com.historicopaciente.historicopaciente.tipoexamemedico.TipoExameMedico;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class ExameMedico {
 
     @ManyToOne
     @JoinColumn(name = "codigo_tipo_exame")
-    private TipoExame tipoExame;
+    private TipoExameMedico tipoExameMedico;
 
     @ManyToOne
     @JoinColumn(name = "id_resultado_geral_exame")
