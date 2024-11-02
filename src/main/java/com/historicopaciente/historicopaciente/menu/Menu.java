@@ -18,7 +18,7 @@ public class Menu {
     public void mostrarOpcoesMenu() {
         System.out.println("\n\n -----------------------MENU-----------------------");
         System.out.println("| 1 - Gerar relatório de histórico de paciente     |");
-        System.out.println("| 4 - Sair                                         |");
+        System.out.println("| 2 - Sair                                         |");
         System.out.println(" --------------------------------------------------");
     }
 
@@ -35,7 +35,7 @@ public class Menu {
     public void inicializarMenu() throws FileNotFoundException {
         int opcao = 0;
 
-        while(opcao != 4) {
+        while(opcao != 2) {
             mostrarOpcoesMenu();
             opcao = selecionarOpcaoMenu();
 
